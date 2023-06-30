@@ -19,9 +19,33 @@ class ViewController: UIViewController {
         view.addSubview(myView)
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // namespace for Core Animation: CA
+        let animation = CABasicAnimation(keyPath: "position.x")
+        animation.fromValue = CGPoint.zero
+        animation.toValue = view.bounds.size.width
+        animation.duration = 1
+        animation.beginTime = CACurrentMediaTime() + 0.4
+        animation.repeatCount = 4
+        animation.autoreverses = true
+        animation.delegate = self
+        myView.layer.add(animation, forKey: nil)
+    }
+
 //    func experiment() {
 //        let myView = UIView()
 //        let layer = myView.layer
 //    }
+
 }
 
+extension ViewController: CAAnimationDelegate {
+    func animationDidStart(_ anim: CAAnimation) {
+        print("Animation did start")
+    }
+
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        print("Animation did stop")
+    }
+}
