@@ -22,6 +22,31 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // namespace for Core Animation: CA
+//        basicAnimation()
+        springAnimation()
+    }
+
+//    func experiment() {
+//        let myView = UIView()
+//        let layer = myView.layer
+//    }
+
+    private func springAnimation() {
+        // spring == curves
+        let jump = CASpringAnimation(keyPath: "transform.scale")
+        jump.damping = 10
+        jump.mass = 1
+        jump.initialVelocity = 100
+        jump.stiffness = 1500.0
+
+        jump.fromValue = 1.0
+        jump.toValue = 2.0
+        jump.duration = jump.settlingDuration
+        myView.layer.add(jump, forKey: nil)
+    }
+
+
+    private func basicAnimation() {
         let animation = CABasicAnimation(keyPath: "position.x")
         animation.fromValue = CGPoint.zero
         animation.toValue = view.bounds.size.width
@@ -32,11 +57,6 @@ class ViewController: UIViewController {
         animation.delegate = self
         myView.layer.add(animation, forKey: nil)
     }
-
-//    func experiment() {
-//        let myView = UIView()
-//        let layer = myView.layer
-//    }
 
 }
 
