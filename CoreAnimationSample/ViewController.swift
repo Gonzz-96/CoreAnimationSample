@@ -10,26 +10,27 @@ import UIKit
 class ViewController: UIViewController {
 
     var myView: UIView!
+    var shapeLayer: CAShapeLayer!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let frame = CGRect(origin: CGPoint.zero, size: CGSize(width: 100, height: 100))
-        myView = UIView(frame: frame)
-        myView.backgroundColor = .blue
-        view.addSubview(myView)
+        let shapeLayer = CAShapeLayer()
+        view.layer.addSublayer(shapeLayer)
+        self.shapeLayer = shapeLayer
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // namespace for Core Animation: CA
-//        basicAnimation()
-        springAnimation()
+        let path = UIBezierPath()
+        path.move(to: view.center)
+        path.addCurve(to: view.center,
+                      controlPoint1: CGPoint(x: view.center.x + 150, y: view.center.y + 150),
+                      controlPoint2: CGPoint(x: view.center.x - 150, y: view.center.y + 150))
+        path.lineWidth = 2
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.strokeColor = UIColor.blue.cgColor
+        shapeLayer.path = path.cgPath
     }
-
-//    func experiment() {
-//        let myView = UIView()
-//        let layer = myView.layer
-//    }
 
     private func springAnimation() {
         // spring == curves
